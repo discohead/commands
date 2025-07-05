@@ -55,18 +55,18 @@ Create a comprehensive knowledge architecture by analyzing the codebase to disco
 </phase_objective>
 
 <execution>
-Run: `/user:context`
+Run: `/context`
 </execution>
 
 <expected_outputs>
 Watch for Claude Code to create these files:
-- `claude/codebase-map.md` - Complete project structure overview
-- `claude/discovered-patterns.md` - Coding conventions and patterns
-- `claude/architecture/system-design.md` - Architectural documentation
-- `claude/technologies/*.md` - Technology-specific deep dives
-- `claude/workflows/*.md` - Common development workflows
+- `.claude/context/codebase-map.md` - Complete project structure overview
+- `.claude/context/discovered-patterns.md` - Coding conventions and patterns
+- `.claude/context/architecture/system-design.md` - Architectural documentation
+- `.claude/context/technologies/*.md` - Technology-specific deep dives
+- `.claude/context/workflows/*.md` - Common development workflows
 - Enhanced `CLAUDE.md` - Primary context file with key patterns
-- `.claude/commands/*.md` - Reusable command files
+- `..claude/context/commands/*.md` - Reusable command files
 </expected_outputs>
 
 <quality_checkpoint>
@@ -78,7 +78,7 @@ Before proceeding to Phase 2, verify:
 □ Code examples are from actual codebase (not generic)
 
 If anything seems incorrect or incomplete, you can:
-- Run `/user:context` again with specific focus areas
+- Run `/context` again with specific focus areas
 - Manually edit files to correct misunderstandings
 - Add additional context to CLAUDE.md before proceeding
 </quality_checkpoint>
@@ -98,14 +98,14 @@ Transform discovered knowledge into active behavioral rules that will guide AI a
 
 <dependency_check>
 Ensure Claude Code context files exist and are complete. Cursor rule generation reads:
-- `claude/discovered-patterns.md`
-- `claude/architecture/system-design.md`
-- `claude/workflows/*`
+- `.claude/context/discovered-patterns.md`
+- `.claude/context/architecture/system-design.md`
+- `.claude/context/workflows/*`
 - Enhanced `CLAUDE.md`
 </dependency_check>
 
 <execution>
-Run: `/user:cursor`
+Run: `/cursor`
 </execution>
 
 <expected_outputs>
@@ -151,13 +151,13 @@ Distill the most essential patterns into persistent instructions that guide GitH
 <context_requirements>
 Copilot generation reads from both previous phases:
 - Enhanced `CLAUDE.md` (core patterns)
-- `claude/discovered-patterns.md` (all patterns)
+- `.claude/context/discovered-patterns.md` (all patterns)
 - `.cursor/rules/always/*.mdc` (universal rules)
-- Key workflows from `claude/workflows/`
+- Key workflows from `.claude/context/workflows/`
 </context_requirements>
 
 <execution>
-Run: `/user:copilot`
+Run: `/copilot`
 </execution>
 
 <expected_outputs>
@@ -198,7 +198,7 @@ This phase depends on ALL previous phases being complete.
 </dependency_verification>
 
 <execution>
-Run: `/user:agents`
+Run: `/agents`
 </execution>
 
 <expected_outputs>
@@ -218,10 +218,10 @@ Each AGENTS.md will include:
 
 <cross_reference_validation>
 Verify AGENTS.md properly references other systems:
-□ **Knowledge references**: Points to CLAUDE.md and claude/ directory
+□ **Knowledge references**: Points to CLAUDE.md and .claude/context/ directory
 □ **Rule references**: Cites specific .cursor/rules/ files
 □ **Style references**: Links to .github/copilot-instructions.md
-□ **Workflow references**: Mentions relevant claude/workflows/
+□ **Workflow references**: Mentions relevant .claude/context/workflows/
 □ **Validation alignment**: Test commands match other systems
 </cross_reference_validation>
 
@@ -304,7 +304,7 @@ Update project documentation to explain the complete AI setup:
 ## AI Assistant Configuration
 
 This project includes AI assistant configuration for:
-- Claude Code: Run `/user:context` for deep code analysis
+- Claude Code: Run `/context` for deep code analysis
 - Cursor: MDC rules in `.cursor/rules/`
 - GitHub Copilot: Instructions in `.github/copilot-instructions.md`
 - OpenAI Codex: Cloud agent instructions in `AGENTS.md`
@@ -322,8 +322,8 @@ See `.github/copilot-instructions-guide.md` for how these work together.
 ## New Developer AI Setup
 - [ ] Install Claude Code, Cursor, and GitHub Copilot
 - [ ] Connect GitHub account for Codex access
-- [ ] Run `/user:ai-ecosystem-setup` for introduction
-- [ ] Review generated documentation in `claude/`
+- [ ] Run `/ai-ecosystem-setup` for introduction
+- [ ] Review generated documentation in `.claude/context/`
 - [ ] Read AGENTS.md for cloud delegation guidance
 - [ ] Test each system with sample tasks
 - [ ] Try delegating a simple task to Codex
@@ -360,7 +360,7 @@ Create summary of complete ecosystem:
 # AI Ecosystem Setup Complete
 
 ## Systems Configured
-1. **Claude Code**: Knowledge repository in `claude/`
+1. **Claude Code**: Knowledge repository in `.claude/context/`
 2. **Cursor**: Behavioral rules in `.cursor/rules/`
 3. **Copilot**: Instructions in `.github/`
 4. **Codex**: Agent instructions in `AGENTS.md`
@@ -392,7 +392,7 @@ Your AI ecosystem is ready for use!
 As your codebase evolves, these maintenance commands help keep your AI configuration current and effective. The complete four-system ecosystem requires coordinated updates to maintain alignment.
 </maintenance_overview>
 
-### Complete Workflow: `/user:ai-ecosystem-maintenance`
+### Complete Workflow: `/ai-ecosystem-maintenance`
 
 <workflow_purpose>
 This comprehensive maintenance workflow ensures all four AI systems remain synchronized as your codebase evolves. It guides you through updating each system in the correct order with proper validation.
@@ -415,10 +415,10 @@ Complete maintenance cycle: 60-75 minutes quarterly
 
 These commands are executed as part of the complete workflow but can also be run independently when specific systems need updates:
 
-- `/user:context-update` - Update Claude Code context incrementally
-- `/user:rules-sync` - Synchronize Cursor rules with patterns
-- `/user:instructions-optimize` - Optimize Copilot for size/impact
-- `/user:agents-sync` - Update AGENTS.md with ecosystem changes
+- `/context-update` - Update Claude Code context incrementally
+- `/rules-sync` - Synchronize Cursor rules with patterns
+- `/instructions-optimize` - Optimize Copilot for size/impact
+- `/agents-sync` - Update AGENTS.md with ecosystem changes
 
 <maintenance_schedule>
 Recommended maintenance cadence:
@@ -434,10 +434,10 @@ Set calendar reminders for maintenance tasks to ensure AI configuration evolves 
 Common issues and solutions:
 
 **Issue**: "AI suggestions don't match our new patterns"
-**Solution**: Run `/user:ai-ecosystem-maintenance` for full sync
+**Solution**: Run `/ai-ecosystem-maintenance` for full sync
 
 **Issue**: "Codex PRs don't follow current standards"
-**Solution**: Run `/user:agents-sync` to update cloud instructions
+**Solution**: Run `/agents-sync` to update cloud instructions
 
 **Issue**: "Too many false positives from rules"
 **Solution**: Review rule specificity and improve glob patterns

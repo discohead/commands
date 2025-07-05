@@ -13,7 +13,7 @@ You are an AI ecosystem maintenance specialist who ensures projects with AI assi
 </system_role>
 
 <immediate_action>
-Start by checking for the existence of AI ecosystem configuration files in this project. Look for the knowledge layer (claude/), behavioral layer (.cursor/rules/), persistent layer (.github/copilot-instructions.md and related files), and delegation layer (AGENTS.md files).
+Start by checking for the existence of AI ecosystem configuration files in this project. Look for the knowledge layer (.claude/context/), behavioral layer (.cursor/rules/), persistent layer (.github/copilot-instructions.md and related files), and delegation layer (AGENTS.md files).
 </immediate_action>
 
 <phase id="1" name="Ecosystem Detection">
@@ -228,7 +228,7 @@ This project maintains a four-layer AI configuration system:
 
 1. **Knowledge Layer** (Claude Code Context)
    - CLAUDE.md: Primary project reference
-   - `claude/`: Discovered patterns, architecture, workflows
+   - `.claude/context/`: Discovered patterns, architecture, workflows
    
 2. **Behavioral Layer** (Cursor Rules)
    - `.cursor/rules/`: MDC rules for active code generation guidance
@@ -250,7 +250,7 @@ Codex leverages all systems for cloud-based task execution.
 Last ecosystem update: {{LAST_UPDATE_DATE}}
 Next maintenance due: {{NEXT_MAINTENANCE_DATE}}
 
-For maintenance: Run `/user:ai-ecosystem-maintenance`
+For maintenance: Run `/ai-ecosystem-maintenance`
 ```
 
 ### Local-Only Ecosystem Template (3 Layers)
@@ -261,7 +261,7 @@ This project maintains a three-layer AI configuration system:
 
 1. **Knowledge Layer** (Claude Code Context)
    - CLAUDE.md: Primary project reference
-   - `claude/`: Discovered patterns, architecture, workflows
+   - `.claude/context/`: Discovered patterns, architecture, workflows
    
 2. **Behavioral Layer** (Cursor Rules)
    - `.cursor/rules/`: MDC rules for active code generation guidance
@@ -292,7 +292,7 @@ This project has incomplete AI assistant configuration:
 
 **Cloud Readiness:** {{IF_AGENTS_MD_EXISTS}}Ready{{ELSE}}Not configured{{END_IF}}
 
-💡 To complete setup: Run `/user:ai-ecosystem-setup` (60-75 minutes)
+💡 To complete setup: Run `/ai-ecosystem-setup` (60-75 minutes)
 
 Last check: {{CURRENT_DATE}}
 ```
@@ -307,7 +307,7 @@ This project maintains a {{THREE_OR_FOUR}}-layer AI configuration system:
 
 1. **Knowledge Layer** (Claude Code Context)
    - CLAUDE.md: Primary project reference
-   - `claude/`: Discovered patterns, architecture, workflows
+   - `.claude/context/`: Discovered patterns, architecture, workflows
    
 2. **Behavioral Layer** (Cursor Rules)
    - `.cursor/rules/`: MDC rules for active code generation guidance
@@ -325,7 +325,7 @@ This project maintains a {{THREE_OR_FOUR}}-layer AI configuration system:
 {{END_IF}}
 
 **🚨 Maintenance Status**: {{DAYS_OVERDUE}} days overdue
-**Immediate Action**: Run `/user:ai-ecosystem-maintenance`
+**Immediate Action**: Run `/ai-ecosystem-maintenance`
 
 Last update: {{LAST_UPDATE_DATE}}
 ```
@@ -342,7 +342,7 @@ This project uses CLAUDE.md for AI context but hasn't been updated to the full {
 - ❌ No Copilot persistent instructions
 - ❌ No Codex cloud delegation
 
-**Recommended**: Run `/user:ai-ecosystem-setup` to implement the full ecosystem for better AI assistance across all tools and enable cloud-based autonomous development.
+**Recommended**: Run `/ai-ecosystem-setup` to implement the full ecosystem for better AI assistance across all tools and enable cloud-based autonomous development.
 ```
 </section_templates>
 
@@ -371,7 +371,7 @@ This project uses CLAUDE.md for AI context but hasn't been updated to the full {
 For each layer present, analyze:
 
 1. **Knowledge Layer**:
-   - List key files in `claude/`
+   - List key files in `.claude/context/`
    - Note any missing expected files
    - Check for update timestamps
 
@@ -410,7 +410,7 @@ For each layer present, analyze:
 {{IF_FULL_ECOSYSTEM}}
 ✅ **Knowledge Layer**: 
    - CLAUDE.md present
-   - {{CONTEXT_FILE_COUNT}} files in `claude/`
+   - {{CONTEXT_FILE_COUNT}} files in `.claude/context/`
 
 ✅ **Behavioral Layer**: 
    - {{RULE_FILE_COUNT}} MDC rule files
@@ -440,7 +440,7 @@ For each layer present, analyze:
 - Next due: {{NEXT_MAINTENANCE_DATE}}
 {{IF_OVERDUE}}
 
-**⚠️ IMMEDIATE ACTION REQUIRED**: Run `/user:ai-ecosystem-maintenance`
+**⚠️ IMMEDIATE ACTION REQUIRED**: Run `/ai-ecosystem-maintenance`
 {{END_IF}}
 {{END_IF}}
 
@@ -452,7 +452,7 @@ For each layer present, analyze:
    - Cross-references: {{IF_VALID}}All valid{{ELSE}}{{BROKEN_COUNT}} broken{{END_IF}}
 {{ELSE}}
 ❌ **Not Cloud-Ready**: No AGENTS.md found
-   - Run `/user:agents` after local setup complete
+   - Run `/agents` after local setup complete
    - Enable task delegation to OpenAI Codex
 {{END_IF}}
 

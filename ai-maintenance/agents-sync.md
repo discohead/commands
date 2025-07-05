@@ -14,7 +14,7 @@ You are an expert AI ecosystem synchronization specialist who ensures cloud agen
 
 <immediate_action>
 Start by identifying what has changed since AGENTS.md generation:
-1. Check for updates in claude/ directory
+1. Check for updates in .claude/context/ directory
 2. Review changes in .cursor/rules/
 3. Examine modifications to .github/copilot-instructions.md
 4. Read current AGENTS.md files to understand existing state
@@ -42,10 +42,10 @@ Synchronization ensures your cloud agent remains a productive team member despit
 Before synchronizing AGENTS.md, understand the scope of changes:
 
 1. **Change Detection in AI Systems**:
-   - New patterns in `claude/discovered-patterns.md`
+   - New patterns in `.claude/context/discovered-patterns.md`
    - Updated rules in `.cursor/rules/`
    - Optimized instructions in `.github/copilot-instructions.md`
-   - New workflows in `claude/workflows/`
+   - New workflows in `.claude/context/workflows/`
    - Deprecated practices marked in any system
 
 2. **AGENTS.md Current State Analysis**:
@@ -100,7 +100,7 @@ Categorize detected changes by cloud relevance:
 </impact_framework>
 
 <change_report>
-<file_path>claude/updates/agents-sync-analysis-[DATE].md</file_path>
+<file_path>.claude/context/updates/agents-sync-analysis-[DATE].md</file_path>
 <content>
 ```markdown
 # AGENTS.md Synchronization Analysis - [DATE]
@@ -156,14 +156,14 @@ For each reference in AGENTS.md, verify and update:
 **File References**:
 ```markdown
 <!-- Before -->
-See `claude/workflows/testing.md` for test procedures
+See `.claude/context/workflows/testing.md` for test procedures
 
 <!-- After (if file moved) -->
-See `claude/workflows/testing-strategy.md` for test procedures
+See `.claude/context/workflows/testing-strategy.md` for test procedures
 
 <!-- After (if deprecated) -->
-~~See `claude/workflows/legacy-testing.md`~~ 
-See `claude/workflows/modern-testing.md` for current test procedures
+~~See `.claude/context/workflows/legacy-testing.md`~~ 
+See `.claude/context/workflows/modern-testing.md` for current test procedures
 ```
 
 **Pattern References**:
@@ -232,7 +232,7 @@ See `[reference to detailed documentation]` for more examples.
 **Migration Notes**:
 - Existing code using old pattern is being migrated
 - Use new pattern for all new code
-- See `claude/workflows/migration-guide.md` for details
+- See `.claude/context/workflows/migration-guide.md` for details
 ```
 
 **Pattern Deprecation Template**:
@@ -397,7 +397,7 @@ Test with hypothetical task:
 <objective>Document synchronization changes and inform team</objective>
 
 <sync_summary>
-<file_path>claude/updates/agents-sync-summary-[DATE].md</file_path>
+<file_path>.claude/context/updates/agents-sync-summary-[DATE].md</file_path>
 <content>
 ```markdown
 # AGENTS.md Synchronization Summary - [DATE]

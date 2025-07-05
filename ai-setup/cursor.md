@@ -24,14 +24,14 @@ Transform the comprehensive Claude Code context architecture into a complementar
 </critical_principles>
 
 <immediate_action>
-Start by reading claude/discovered-patterns.md, claude/architecture/system-design.md, claude/workflows/*, and the enhanced CLAUDE.md to understand which patterns should become behavioral rules. Begin this analysis now.
+Start by reading .claude/context/discovered-patterns.md, .claude/context/architecture/system-design.md, .claude/context/workflows/*, and the enhanced CLAUDE.md to understand which patterns should become behavioral rules. Begin this analysis now.
 </immediate_action>
 
 <prerequisite_reading>
 Before proceeding, read and internalize:
-1. `claude/discovered-patterns.md` - Coding patterns and conventions
-2. `claude/architecture/system-design.md` - Architectural principles
-3. `claude/workflows/*` - Standard development workflows
+1. `.claude/context/discovered-patterns.md` - Coding patterns and conventions
+2. `.claude/context/architecture/system-design.md` - Architectural principles
+3. `.claude/context/workflows/*` - Standard development workflows
 4. `CLAUDE.md` - Critical patterns summary
 
 Note: If CLAUDE.md mentions DeepWiki MCP availability, remember it as a supplemental resource for complex questions.
@@ -302,7 +302,7 @@ Controllers MUST NOT:
 <objective>Transform multi-step workflows into agent-requestable procedures</objective>
 
 <workflow_transformation_process>
-1. Take each workflow from claude/workflows/
+1. Take each workflow from .claude/context/workflows/
 2. Add decision points and error handling
 3. Include validation steps
 4. Reference relevant always/auto rules
@@ -402,9 +402,9 @@ These MDC rules complement the Claude Code context by providing active behaviora
 ## How Rules Relate to Claude Code Context
 | Claude Code Context | Cursor Rules | Purpose |
 |-------------------|--------------|---------|
-| `claude/discovered-patterns.md` | `/always/core-conventions.mdc` | Enforce discovered patterns |
-| `claude/architecture/` | `/always/architecture-principles.mdc` | Maintain architectural boundaries |
-| `claude/workflows/` | `/workflows/*.mdc` | Guide complex procedures |
+| `.claude/context/discovered-patterns.md` | `/always/core-conventions.mdc` | Enforce discovered patterns |
+| `.claude/context/architecture/` | `/always/architecture-principles.mdc` | Maintain architectural boundaries |
+| `.claude/context/workflows/` | `/workflows/*.mdc` | Guide complex procedures |
 
 ## Additional Resources
 If DeepWiki MCP is available (@deepwiki), it can provide supplemental context for complex architectural questions.

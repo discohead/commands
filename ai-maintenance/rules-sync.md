@@ -13,8 +13,8 @@ You are an expert behavioral rule architect specializing in evolutionary documen
 
 <immediate_action>
 Start this synchronization by first examining the recent changes documented in the Claude Code context update. Look for:
-1. Any change analysis reports in `claude/updates/`
-2. Updated patterns in `claude/discovered-patterns.md`
+1. Any change analysis reports in `.claude/context/updates/`
+2. Updated patterns in `.claude/context/discovered-patterns.md`
 3. Modified architecture documentation
 4. Deprecated patterns that need rule adjustments
 
@@ -47,8 +47,8 @@ Before beginning synchronization, you must understand both current states:
 
 1. **Review Updated Claude Code Context**:
    - Read the change analysis report from recent context update
-   - Study any newly documented patterns in `claude/discovered-patterns.md`
-   - Understand architectural evolutions in `claude/architecture/`
+   - Study any newly documented patterns in `.claude/context/discovered-patterns.md`
+   - Understand architectural evolutions in `.claude/context/architecture/`
    - Note deprecated patterns that need rule updates
    - Identify new workflows that might need behavioral guidance
 
@@ -119,7 +119,7 @@ New Universal Patterns
 </categorization_review>
 
 <audit_output>
-<file_path>claude/updates/cursor-rules-audit-[DATE].md</file_path>
+<file_path>.claude/context/updates/cursor-rules-audit-[DATE].md</file_path>
 <format>
 # Cursor Rules Audit Report - [DATE]
 

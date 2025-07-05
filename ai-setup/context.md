@@ -116,7 +116,7 @@ After gathering this information, reflect deeply:
 </thinking_prompt>
 
 <output_artifact>
-<file_path>claude/codebase-map.md</file_path>
+<file_path>.claude/context/codebase-map.md</file_path>
 <format>
 # Codebase Map
 
@@ -203,7 +203,7 @@ class UserRepository extends BaseRepository {
 </example>
 
 <output_artifact>
-<file_path>claude/discovered-patterns.md</file_path>
+<file_path>.claude/context/discovered-patterns.md</file_path>
 </output_artifact>
 </phase>
 
@@ -228,7 +228,7 @@ Think deeply about the architectural decisions:
 </thinking_prompt>
 
 <output_artifact>
-<file_path>claude/architecture/system-design.md</file_path>
+<file_path>.claude/context/architecture/system-design.md</file_path>
 <format>
 # System Architecture
 
@@ -283,7 +283,7 @@ For each technology:
 </analysis_framework>
 
 <output_artifact>
-<file_path>claude/technologies/[tech-name].md</file_path>
+<file_path>.claude/context/technologies/[tech-name].md</file_path>
 </output_artifact>
 </phase>
 
@@ -306,7 +306,7 @@ Think harder about the development lifecycle:
 </thinking_prompt>
 
 <output_artifact>
-<file_path>claude/workflows/[workflow-name].md</file_path>
+<file_path>.claude/context/workflows/[workflow-name].md</file_path>
 <format>
 # Workflow: Adding a New API Endpoint
 
@@ -346,7 +346,7 @@ Generate commands for patterns that are:
 </command_criteria>
 
 <output_artifact>
-<file_path>.claude/commands/[command-name].md</file_path>
+<file_path>.claude/context/commands/[command-name].md</file_path>
 <format>
 ---
 description: Generate a new REST endpoint following our patterns
@@ -399,7 +399,7 @@ Include in CLAUDE.md only information that:
 <objective>Create a comprehensive guide to the knowledge architecture</objective>
 
 <output_artifact>
-<file_path>claude/context-map.md</file_path>
+<file_path>.claude/context/context-map.md</file_path>
 <format>
 # Claude Code Context Map
 
@@ -535,9 +535,9 @@ npm run build:[component]
 [Note any recent refactoring or pattern changes]
 
 ## Links to Related Documentation
-- Architecture: `/claude/architecture/system-design.md#[component]`
-- Patterns: `/claude/discovered-patterns.md#[component]-patterns`
-- Workflows: `/claude/workflows/[component]-workflow.md`
+- Architecture: `/.claude/context/architecture/system-design.md#[component]`
+- Patterns: `/.claude/context/discovered-patterns.md#[component]-patterns`
+- Workflows: `/.claude/context/workflows/[component]-workflow.md`
 </format>
 </nested_claude_template>
 

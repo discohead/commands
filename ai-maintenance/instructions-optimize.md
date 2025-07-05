@@ -138,7 +138,7 @@ Let's analyze a hypothetical instruction to see this framework in action:
 </impact_analysis_example>
 
 <output_artifact>
-<file_path>claude/optimization/copilot-impact-analysis-[DATE].md</file_path>
+<file_path>.claude/context/optimization/copilot-impact-analysis-[DATE].md</file_path>
 <format>
 # Copilot Instructions Impact Analysis - [DATE]
 

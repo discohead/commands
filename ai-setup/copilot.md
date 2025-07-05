@@ -26,7 +26,7 @@ Think of Copilot instructions like muscle memory for the AI - patterns so intern
 </copilot_philosophy>
 
 <immediate_action>
-Start by reading the enhanced CLAUDE.md, claude/discovered-patterns.md, .cursor/rules/always/*.mdc, and key workflow files to understand what patterns should become persistent Copilot guidance. Begin this analysis now.
+Start by reading the enhanced CLAUDE.md, .claude/context/discovered-patterns.md, .cursor/rules/always/*.mdc, and key workflow files to understand what patterns should become persistent Copilot guidance. Begin this analysis now.
 </immediate_action>
 
 <prerequisite_analysis>

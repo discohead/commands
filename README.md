@@ -24,7 +24,7 @@ The magic happens when these four systems work together. Claude Code discovers a
 The commands are organized into logical categories that reflect the lifecycle of AI configuration:
 
 ```
-~/.claude/commands/
+~/..claude/context/commands/
 ├── ai-setup/          # Initial configuration generation
 │   ├── context.md
 │   ├── cursor.md
@@ -50,7 +50,7 @@ This organization mirrors how you'll actually use these commands. First, you set
 <command_category name="ai-setup">
 These commands generate your initial AI configuration by analyzing your codebase and discovering patterns. Think of this as the "archaeological dig" phase where we uncover the implicit knowledge in your code and make it explicit.
 
-### `/user:context` - Generate Claude Code Context
+### `/context` - Generate Claude Code Context
 
 This command performs a comprehensive analysis of your codebase, discovering patterns, conventions, and architectural decisions. It's like having an expert developer study your entire project and document everything they learn. If DeepWiki MCP is available, it can provide external validation of discovered patterns.
 
@@ -60,7 +60,7 @@ This command performs a comprehensive analysis of your codebase, discovering pat
 - When onboarding AI assistance to a legacy codebase
 
 **What it creates**:
-- `claude/` directory with comprehensive documentation
+- `.claude/context/` directory with comprehensive documentation
 - Enhanced `CLAUDE.md` with critical patterns
 - Discovered patterns, architecture diagrams, and workflows
 - Custom commands for common operations
@@ -70,7 +70,7 @@ This command performs a comprehensive analysis of your codebase, discovering pat
 
 **Time investment**: 20-30 minutes for thorough analysis
 
-### `/user:cursor` - Generate Cursor Rules
+### `/cursor` - Generate Cursor Rules
 
 This command transforms discovered patterns into behavioral rules that actively guide AI code generation. It's like converting a style guide into an automated linter that prevents mistakes before they happen.
 
@@ -88,7 +88,7 @@ This command transforms discovered patterns into behavioral rules that actively 
 
 **Dependencies**: Requires Claude Code context files to exist
 
-### `/user:copilot` - Generate Copilot Instructions
+### `/copilot` - Generate Copilot Instructions
 
 This command distills essential patterns into persistent instructions that accompany every Copilot interaction. Think of it as creating the "muscle memory" for your AI pair programmer.
 
@@ -105,7 +105,7 @@ This command distills essential patterns into persistent instructions that accom
 
 **Optimization focus**: Maximum impact within size constraints
 
-### `/user:agents` - Generate Codex AGENTS.md
+### `/agents` - Generate Codex AGENTS.md
 
 This command synthesizes knowledge from all three local systems into instructions for cloud-based task execution. It creates AGENTS.md files that reference your existing AI configuration, enabling Codex to work with full awareness of your patterns and conventions.
 
@@ -131,7 +131,7 @@ This command synthesizes knowledge from all three local systems into instruction
 <command_category name="ai-maintenance">
 These commands help you keep your AI configuration synchronized with your evolving codebase. Like tending a garden, regular maintenance ensures your AI assistance remains helpful rather than becoming outdated.
 
-### `/user:context-update` - Update Context for New Patterns
+### `/context-update` - Update Context for New Patterns
 
 This surgical update command analyzes what has changed since the last documentation generation and updates only the affected areas. It preserves valuable existing documentation while integrating new discoveries.
 
@@ -150,7 +150,7 @@ This surgical update command analyzes what has changed since the last documentat
 
 **Approach**: Incremental updates, not regeneration
 
-### `/user:rules-sync` - Synchronize Cursor Rules
+### `/rules-sync` - Synchronize Cursor Rules
 
 This command ensures your Cursor rules remain aligned with updated patterns and architectural changes. It's like retuning an instrument to ensure it still plays in harmony with the rest of the orchestra.
 
@@ -168,7 +168,7 @@ This command ensures your Cursor rules remain aligned with updated patterns and 
 
 **Validation**: Tests rules to ensure they guide effectively
 
-### `/user:instructions-optimize` - Optimize Copilot Instructions
+### `/instructions-optimize` - Optimize Copilot Instructions
 
 This command refines Copilot instructions to maximize their impact within strict size constraints. Like a poet refining verses, it ensures every word earns its place through measurable benefit.
 
@@ -186,7 +186,7 @@ This command refines Copilot instructions to maximize their impact within strict
 
 **Success metrics**: Error prevention per line of instruction
 
-### `/user:agents-sync` - Synchronize AGENTS.md
+### `/agents-sync` - Synchronize AGENTS.md
 
 This command updates AGENTS.md files to reflect changes in your local AI systems and codebase patterns. It ensures cloud-based tasks remain aligned with current development practices.
 
@@ -210,7 +210,7 @@ This command updates AGENTS.md files to reflect changes in your local AI systems
 <command_category name="workflows">
 These commands guide you through multi-step processes, ensuring you execute complex procedures in the correct order with proper validation at each stage.
 
-### `/user:ai-ecosystem-setup` - Complete Ecosystem Setup
+### `/ai-ecosystem-setup` - Complete Ecosystem Setup
 
 This master orchestrator walks you through the entire process of establishing AI assistance for a project. It ensures each phase builds properly on the previous one, with quality checkpoints throughout.
 
@@ -226,7 +226,7 @@ This master orchestrator walks you through the entire process of establishing AI
 
 **Best practice**: Reserve 60-75 minutes for uninterrupted setup
 
-### `/user:ai-ecosystem-maintenance` - Complete Maintenance Workflow
+### `/ai-ecosystem-maintenance` - Complete Maintenance Workflow
 
 This orchestrator guides you through a comprehensive maintenance cycle for all four AI systems. It ensures updates are performed in the correct sequence with proper validation between phases.
 
@@ -251,7 +251,7 @@ This orchestrator guides you through a comprehensive maintenance cycle for all f
 
 ## Global Utility Commands
 
-### `/user:ai-ecosystem-check` - Check and Update Configuration
+### `/ai-ecosystem-check` - Check and Update Configuration
 
 This utility command checks your project for AI ecosystem configuration and updates CLAUDE.md with current status. It also verifies DeepWiki availability, checks for AGENTS.md files, and ensures proper documentation.
 
@@ -434,7 +434,7 @@ The commands provided here are a foundation. Build upon them to create an AI ass
 When things don't work as expected, these solutions address the most common issues:
 
 **"Commands aren't appearing in Claude Code"**
-- Ensure files are in `~/.claude/commands/` directory
+- Ensure files are in `~/..claude/context/commands/` directory
 - Check file extensions are `.md`
 - Restart Claude Code to refresh command list
 - Verify file permissions allow reading
@@ -503,17 +503,17 @@ For easy reference, here's a summary of all commands and their primary purposes:
 
 | Command | Purpose | When to Use | Time Required |
 |---------|---------|-------------|---------------|
-| `/user:context` | Generate initial Claude Code context | New project setup | 20-30 min |
-| `/user:cursor` | Create Cursor behavioral rules | After context generation | 10-15 min |
-| `/user:copilot` | Generate Copilot instructions | After rules creation | 10 min |
-| `/user:agents` | Create Codex AGENTS.md files | After local setup complete | 10-15 min |
-| `/user:ai-ecosystem-setup` | Complete setup orchestration | Initial configuration | 60-75 min |
-| `/user:context-update` | Update context incrementally | Quarterly or after major changes | 15-20 min |
-| `/user:rules-sync` | Synchronize rules with context | After context updates | 10-15 min |
-| `/user:instructions-optimize` | Optimize instruction size/impact | Annually or when at limits | 15-20 min |
-| `/user:agents-sync` | Update AGENTS.md files | After local system updates | 10-15 min |
-| `/user:ai-ecosystem-maintenance` | Complete maintenance cycle | Quarterly updates | 60-75 min |
-| `/user:ai-ecosystem-check` | Check configuration status | Anytime to verify setup | 2-5 min |
+| `/context` | Generate initial Claude Code context | New project setup | 20-30 min |
+| `/cursor` | Create Cursor behavioral rules | After context generation | 10-15 min |
+| `/copilot` | Generate Copilot instructions | After rules creation | 10 min |
+| `/agents` | Create Codex AGENTS.md files | After local setup complete | 10-15 min |
+| `/ai-ecosystem-setup` | Complete setup orchestration | Initial configuration | 60-75 min |
+| `/context-update` | Update context incrementally | Quarterly or after major changes | 15-20 min |
+| `/rules-sync` | Synchronize rules with context | After context updates | 10-15 min |
+| `/instructions-optimize` | Optimize instruction size/impact | Annually or when at limits | 15-20 min |
+| `/agents-sync` | Update AGENTS.md files | After local system updates | 10-15 min |
+| `/ai-ecosystem-maintenance` | Complete maintenance cycle | Quarterly updates | 60-75 min |
+| `/ai-ecosystem-check` | Check configuration status | Anytime to verify setup | 2-5 min |
 
 ## Getting Started
 
@@ -526,7 +526,7 @@ If you're new to this AI ecosystem approach, here's your roadmap:
    - DeepWiki MCP for additional perspective: `claude mcp add deepwiki https://mcp.deepwiki.com/sse`
    - GitHub app for Codex access (see OpenAI documentation)
 
-3. **Run the orchestrator**: Use `/user:ai-ecosystem-setup` for guided setup. The workflow will immediately begin checking prerequisites and guide you through each phase with validation steps.
+3. **Run the orchestrator**: Use `/ai-ecosystem-setup` for guided setup. The workflow will immediately begin checking prerequisites and guide you through each phase with validation steps.
 
 4. **Work normally for a week**: Use your AI tools as usual and note where they excel or struggle. Try delegating a complex task to Codex.
 

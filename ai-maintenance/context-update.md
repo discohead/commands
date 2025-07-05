@@ -43,11 +43,11 @@ Before beginning updates, you must understand the current documentation state:
 
 1. **Read ALL existing Claude Code context files**:
    - `CLAUDE.md` - Current primary context
-   - `claude/codebase-map.md` - Existing structure documentation
-   - `claude/discovered-patterns.md` - Previously identified patterns
-   - `claude/architecture/*.md` - Current architecture documentation
-   - `claude/technologies/*.md` - Technology-specific documentation
-   - `claude/workflows/*.md` - Documented workflows
+   - `.claude/context/codebase-map.md` - Existing structure documentation
+   - `.claude/context/discovered-patterns.md` - Previously identified patterns
+   - `.claude/context/architecture/*.md` - Current architecture documentation
+   - `.claude/context/technologies/*.md` - Technology-specific documentation
+   - `.claude/context/workflows/*.md` - Documented workflows
 
 2. **Identify the last update timestamp** (if noted in files)
 
@@ -102,7 +102,7 @@ As you analyze changes, consider:
 </thinking_prompt>
 
 <output_artifact>
-<file_path>claude/updates/change-analysis-[DATE].md</file_path>
+<file_path>.claude/context/updates/change-analysis-[DATE].md</file_path>
 <format>
 # Change Analysis Report - [DATE]
 
@@ -326,13 +326,13 @@ When updating, maintain the quality standards of the original documentation:
 <validation_commands>
 ```bash
 # Verify all referenced files exist
-grep -r "@\|\.md)" claude/ | grep -v ".git" | [verify links]
+grep -r "@\|\.md)" .claude/context/ | grep -v ".git" | [verify links]
 
 # Check for TODOs or placeholders that need attention
-grep -r "TODO\|FIXME\|XXX" claude/
+grep -r "TODO\|FIXME\|XXX" .claude/context/
 
 # Ensure no accidental duplicates
-find claude/ -type f -name "*.md" | xargs grep -h "^##" | sort | uniq -d
+find .claude/context/ -type f -name "*.md" | xargs grep -h "^##" | sort | uniq -d
 ```
 </validation_commands>
 
@@ -348,7 +348,7 @@ find claude/ -type f -name "*.md" | xargs grep -h "^##" | sort | uniq -d
 <objective>Create a summary of changes and maintenance recommendations</objective>
 
 <output_artifact>
-<file_path>claude/updates/update-summary-[DATE].md</file_path>
+<file_path>.claude/context/updates/update-summary-[DATE].md</file_path>
 <format>
 # Context Update Summary - [DATE]
 

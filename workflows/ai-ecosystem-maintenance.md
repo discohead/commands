@@ -66,16 +66,16 @@ Before beginning maintenance, verify these prerequisites:
   - Team is aware maintenance is occurring
 
 □ **Previous Configuration Exists**
-  - Claude Code context files in `claude/`
+  - Claude Code context files in `.claude/context/`
   - Cursor rules in `.cursor/rules/`
   - Copilot instructions in `.github/`
   - AGENTS.md in project root
   
 □ **Maintenance Commands Available**
-  - `/user:context-update`
-  - `/user:rules-sync`
-  - `/user:instructions-optimize`
-  - `/user:agents-sync`
+  - `/context-update`
+  - `/rules-sync`
+  - `/instructions-optimize`
+  - `/agents-sync`
 
 If any prerequisites are missing, address them before proceeding.
 </readiness_assessment>
@@ -96,7 +96,7 @@ Look for these indicators that context update is needed:
 </maintenance_trigger>
 
 <execution_instruction>
-Say: "Run `/user:context-update` to analyze codebase changes and update documentation."
+Say: "Run `/context-update` to analyze codebase changes and update documentation."
 
 This command will:
 1. Analyze what has changed since last documentation
@@ -108,7 +108,7 @@ This command will:
 
 <validation_checkpoint>
 After context update completes, verify:
-□ Change analysis report was created in `claude/updates/`
+□ Change analysis report was created in `.claude/context/updates/`
 □ Pattern documentation reflects current practices
 □ Architecture diagrams match current structure
 □ No critical patterns were removed accidentally
@@ -138,7 +138,7 @@ This phase requires completed Phase 1 because:
 </dependency_check>
 
 <execution_instruction>
-Say: "Run `/user:rules-sync` to align Cursor rules with updated context."
+Say: "Run `/rules-sync` to align Cursor rules with updated context."
 
 This command will:
 1. Audit existing rules against updated patterns
@@ -174,7 +174,7 @@ This phase comes third because:
 </dependency_rationale>
 
 <execution_instruction>
-Say: "Run `/user:instructions-optimize` to refine Copilot instructions."
+Say: "Run `/instructions-optimize` to refine Copilot instructions."
 
 This command will:
 1. Analyze current instruction effectiveness
@@ -209,7 +209,7 @@ This phase requires all previous phases because:
 </dependency_chain>
 
 <execution_instruction>
-Say: "Run `/user:agents-sync` to update cloud agent instructions."
+Say: "Run `/agents-sync` to update cloud agent instructions."
 
 This command will:
 1. Update references to Claude Code documentation
@@ -276,7 +276,7 @@ Record maintenance changes and communicate updates to the team.
 </documentation_objective>
 
 <maintenance_summary>
-Create `claude/updates/maintenance-summary-[DATE].md`:
+Create `.claude/context/updates/maintenance-summary-[DATE].md`:
 
 ```markdown
 # AI Ecosystem Maintenance Summary - [DATE]
@@ -349,7 +349,7 @@ Completed maintenance cycle for our AI assistants:
 - Try delegating [suggested task] to Codex
 - Report any AI suggestions that seem outdated
 
-Details: See maintenance summary in `claude/updates/`
+Details: See maintenance summary in `.claude/context/updates/`
 
 Next scheduled maintenance: [DATE]
 ```

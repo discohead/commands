@@ -14,7 +14,7 @@ You are an expert AI ecosystem architect specializing in synthesizing multi-syst
 
 <immediate_action>
 Start by reading all existing AI configuration files to understand the current ecosystem:
-1. Read CLAUDE.md and claude/ directory for comprehensive patterns
+1. Read CLAUDE.md and .claude/context/ directory for comprehensive patterns
 2. Read .cursor/rules/ for behavioral enforcement
 3. Read .github/copilot-instructions.md for universal guidance
 4. Identify patterns suitable for cloud delegation
@@ -112,7 +112,7 @@ Always include explicit references to other AI systems:
 This project uses a comprehensive AI assistance ecosystem. When generating code:
 
 ### Reference Documentation
-- **Patterns & Architecture**: See `CLAUDE.md` and `claude/` directory
+- **Patterns & Architecture**: See `CLAUDE.md` and `.claude/context/` directory
 - **Behavioral Rules**: Follow all rules in `.cursor/rules/`
 - **Code Style**: Adhere to `.github/copilot-instructions.md`
 
@@ -123,9 +123,9 @@ This project uses a comprehensive AI assistance ecosystem. When generating code:
 4. Security: [Non-negotiables from Copilot]
 
 ### When Uncertain
-- Check `claude/discovered-patterns.md` for examples
-- Follow patterns in `claude/architecture/system-design.md`
-- Use validation methods from `claude/workflows/`
+- Check `.claude/context/discovered-patterns.md` for examples
+- Follow patterns in `.claude/context/architecture/system-design.md`
+- Use validation methods from `.claude/context/workflows/`
 ```
 </cross_reference_template>
 </phase>
@@ -151,7 +151,7 @@ You are an autonomous software engineering agent working on [project description
 [List from Claude Code context]
 
 ### Architecture Summary
-[High-level summary with reference to claude/architecture/ for details]
+[High-level summary with reference to .claude/context/architecture/ for details]
 
 ## AI Ecosystem References
 
@@ -178,13 +178,13 @@ Always check these files when uncertain about patterns or conventions.
 ### Before Making Changes
 1. Read relevant AI configuration files for the area you're modifying
 2. Run existing tests to understand current behavior
-3. Check `claude/workflows/` for standard procedures
+3. Check `.claude/context/workflows/` for standard procedures
 
 ### While Developing
 1. Follow all patterns in `CLAUDE.md`
 2. Respect architectural boundaries from `.cursor/rules/always/architecture-principles.mdc`
 3. Use naming conventions from `.github/copilot-instructions.md`
-4. Write tests as specified in `claude/workflows/testing.md`
+4. Write tests as specified in `.claude/context/workflows/testing.md`
 
 ### Validation Requirements
 - [ ] All tests pass: `[test command]`
@@ -195,14 +195,14 @@ Always check these files when uncertain about patterns or conventions.
 ## Common Tasks
 
 ### Adding New Features
-See `claude/workflows/new-feature.md` for detailed steps. Key points:
+See `.claude/context/workflows/new-feature.md` for detailed steps. Key points:
 1. [Extracted key steps]
 2. [Validation requirements]
 
 ### Refactoring
 When refactoring existing code:
 1. Preserve all existing tests
-2. Follow patterns in `claude/discovered-patterns.md`
+2. Follow patterns in `.claude/context/discovered-patterns.md`
 3. Maintain architectural boundaries
 
 ### Bug Fixes
@@ -253,7 +253,7 @@ Your PR should include:
 
 If you encounter issues:
 1. Check error logs thoroughly
-2. Consult pattern examples in `claude/`
+2. Consult pattern examples in `.claude/context/`
 3. Ensure environment matches setup requirements
 4. Validate against all AI system rules
 
@@ -298,7 +298,7 @@ Extends root AGENTS.md with backend-specific guidance.
 [From discovered patterns and architecture docs]
 
 ## Database Conventions
-See `claude/technologies/database.md` for specifics
+See `.claude/context/technologies/database.md` for specifics
 
 ## Service Layer Rules
 Follow `.cursor/rules/components/services.mdc` exactly
@@ -537,7 +537,7 @@ Test AGENTS.md effectiveness by checking:
 </quality_metrics>
 
 <output_summary>
-<file_path>claude/generation/agents-generation-summary-[DATE].md</file_path>
+<file_path>.claude/context/generation/agents-generation-summary-[DATE].md</file_path>
 <content>
 ```markdown
 # AGENTS.md Generation Summary - [DATE]
