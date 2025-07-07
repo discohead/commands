@@ -22,7 +22,7 @@ All commands follow an XML-based structure that must be preserved:
 Always maintain awareness of the four layers when creating or modifying commands:
 1. **Knowledge Layer** (CLAUDE.md) - Comprehensive context
 2. **Behavioral Layer** (.cursor/rules/) - Active guidance rules  
-3. **Persistent Layer** (.github/copilot-instructions.md) - Persistent patterns
+3. **Persistent Layer** (.github/copilot-instructions.md, .github/workflows/copilot-setup-steps.yml) - Persistent patterns and environment configuration
 4. **Delegation Layer** (AGENTS.md) - Cloud execution definitions
 
 ### Output Specifications
@@ -111,6 +111,7 @@ grep -r "pattern" --include="*.md" .
 - Integrated DeepWiki MCP for external validation
 - Enhanced maintenance workflows
 - Added cloud delegation capabilities
+- [2025-07-05] Added GitHub Copilot environment configuration via copilot-setup-steps.yml
 
 ## Performance Considerations
 - Commands may take 20-60 minutes for full analysis

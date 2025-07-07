@@ -264,7 +264,6 @@ Review how evolved patterns affect task delegation:
 - Improved testing allows confident [task type]
 
 **No Longer Suitable Tasks**:
-- [Task type] now requires human judgment due to [change]
 - [Task type] needs real-time feedback with new process
 
 **Improved Task Approaches**:
@@ -300,7 +299,6 @@ Leverage [new pattern] for more systematic updates:
 - [Better validation]
 
 ### Tasks No Longer Recommended
-- ❌ [Task type]: Now requires [human element]
 - ❌ [Task type]: New process needs iteration
 ```
 </task_section_updates>

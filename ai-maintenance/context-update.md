@@ -61,36 +61,123 @@ As you read, note:
 </instruction>
 </prerequisite_analysis>
 
+<context_engineering_toolkit>
+<phase id="0.5" name="Context Engineering Toolkit Setup">
+<objective>Leverage modern tools for efficient incremental analysis</objective>
+
+<toolkit_reminder>
+This update process is powered by Claude Code's context engineering toolkit:
+- **Fast search**: `rg` (ripgrep), `fd` 
+- **Code intelligence**: `ast-grep`, `semgrep`, `comby`
+- **Data processing**: `jq`, `yq`, `gron`, `mlr`, `jc`
+- **Scripting**: `perl`, `ruby`, `awk`, `python` one-liners
+
+These tools enable surgical context extraction and precise change detection.
+</toolkit_reminder>
+
+<efficient_update_commands>
+```bash
+# Quick change overview
+echo "=== Recent changes summary ==="
+git log --since="3 months ago" --oneline | wc -l  # Number of commits
+git diff --stat HEAD~100 | tail -1                # Lines changed
+
+
+# Pattern change detection
+echo "=== Pattern evolution ==="
+for pattern in "class.*extends" "async function" "interface.*{" "type.*="; do
+  echo "Pattern: $pattern"
+  git diff HEAD~100 | rg "$pattern" | wc -l
+done
+
+# Find files needing documentation updates
+fd -e md -p ".claude" | xargs -I {} sh -c 'echo "=== {} ==="; git log -1 --format="%ar" -- {}'
+```
+</efficient_update_commands>
+
+<smart_sampling>
+Instead of reading every file, use intelligent sampling:
+```bash
+# Find most changed files by commit count
+git log --since="3 months ago" --pretty=format: --name-only | sort | uniq -c | sort -rg | head -10 | awk '{print $2}' | xargs cat --style=changes
+
+# Find files with most pattern changes
+git diff HEAD~100 --name-only | xargs -I {} sh -c 'echo -n "{}: "; git diff HEAD~100 -- {} | rg "^[+-].*\b(class|function|interface|type)\b" | wc -l' | sort -t: -k2 -rn | head -10
+
+```
+</smart_sampling>
+
+<update_strategy>
+1. Use `rg` and `fd` to quickly identify change hotspots
+2. Apply `ast-grep` to detect structural changes
+3. Use `comby` to find pattern migrations
+4. Process configs with `jq`/`yq` for setting changes
+</update_strategy>
+</phase>
+</context_engineering_toolkit>
+
 <phase id="1" name="Change Detection">
 <objective>Identify areas of significant change since last documentation update</objective>
 
 <change_detection_methodology>
-1. **Git History Analysis**:
+1. **Git History Analysis with Modern Tools**:
    ```bash
    # Find most active areas (customize date based on last update)
    git log --since="3 months ago" --pretty=format: --name-only | sort | uniq -c | sort -rg | head -20
    
-   # Identify new directories or major additions
-   git log --since="3 months ago" --diff-filter=A --pretty=format: --name-only | grep -E "(src/|lib/|app/)" | sort -u
+   # Identify new directories or major additions with fd
+   git log --since="3 months ago" --diff-filter=A --pretty=format: --name-only | fd -t f '\.(js|ts|py|java)$' | head -20
    
    # Look for significant refactoring
    git log --since="3 months ago" --grep="refactor" --oneline
+   
+   # Find changed patterns with ripgrep
+   git diff HEAD~100 --name-only | xargs rg -l 'class|function|interface' | sort | uniq
    ```
 
-2. **Structural Comparison**:
-   - Run same `find` commands from original context generation
+2. **Structural Comparison with Context Engineering Tools**:
+   ```bash
+   # Fast directory structure comparison
+   tree -d -I 'node_modules|dist|build' -L 3 > current-structure.txt
+   
+   # Find new file types
+   fd -t f | perl -ne 'print "$1\n" if /\.([^.\/]+)$/' | sort | uniq -c | sort -rn
+   
+   # Detect moved files
+   git log --since="3 months ago" --summary --name-status | rg '^R' | head -20
+   ```
    - Compare results with documented structure in `codebase-map.md`
    - Note new directories, removed areas, or reorganizations
 
-3. **Pattern Evolution Detection**:
-   - Sample files from highly-changed areas
+3. **Pattern Evolution Detection with AST Analysis**:
+   ```bash
+   # Detect new patterns with AST
+   ast-grep --pattern 'class $$ { $$$ }' --json | jq '.matches | length' > current-class-count.txt
+   ast-grep --pattern 'async function $$($$$) { $$$ }' --stats
+   
+   # Find new architectural patterns
+   comby -stats 'try { :[body] } catch (:[err]) { :[handler] }' '' .js -d src/
+   
+   # Semantic pattern analysis
+   semgrep --config=auto --metrics=on --json | jq '.metrics.total_matches'
+   ```
    - Compare against patterns in `discovered-patterns.md`
    - Look for new patterns or evolution of existing ones
 
-4. **Technology Stack Changes**:
-   - Check for new dependencies in package files
-   - Look for new configuration files
-   - Identify deprecated or removed technologies
+4. **Technology Stack Changes with Smart Analysis**:
+   ```bash
+   # Dependency changes analysis
+   git diff HEAD~100 package.json | rg '^[+-]\s*"' | sort
+   
+   # New configuration files
+   fd -H '^\.' -t f --changed-within 3months | rg '\.(json|yaml|yml|toml|ini)$'
+   
+   # Framework usage evolution
+   rg -t js -t ts --stats 'import .* from ["'\''](react|vue|angular|express|fastify)' | tail -20
+   
+   # New technology markers
+   fd -e dockerfile -e yaml | xargs rg -l '(postgres|mongodb|redis|kafka|rabbitmq)' | sort | uniq
+   ```
 </change_detection_methodology>
 
 <thinking_prompt>
@@ -400,6 +487,61 @@ Please review changes in areas you work with frequently.
 </format>
 </output_artifact>
 </phase>
+
+<toolkit_propagation_update>
+<phase id="6.5" name="Context Engineering Toolkit Integration">
+<objective>Ensure updated contexts include knowledge of modern context engineering tools</objective>
+
+<propagation_checklist>
+When updating any context file, ensure it includes:
+
+1. **Toolkit Availability Notice** (if not already present):
+```markdown
+## Context Engineering Toolkit
+
+This project's Claude Code context includes access to modern tools for efficient codebase exploration:
+- **Fast search**: `rg` (ripgrep), `fd` 
+- **Code intelligence**: `ast-grep`, `semgrep`, `comby`
+- **Data processing**: `jq`, `yq`, `gron`, `mlr`, `jc`
+- **Scripting**: `perl`, `ruby`, `awk`, `python` one-liners
+```
+
+2. **Updated Discovery Commands** for changed areas:
+```markdown
+## Efficient Context Discovery - [Component Name]
+
+# Find implementations in this module
+ast-grep --pattern 'class $$ implements $$' src/[component]/
+
+# Search for usage patterns
+rg '[ComponentName]' --type ts -A 2 -B 2 | head -20
+
+# Analyze recent changes
+git log -p --since="1 month ago" -- src/[component]/ | rg '^\+.*class'
+```
+
+3. **Performance Tips** specific to the update:
+```markdown
+## Quick Analysis Commands
+
+# See what changed in this update
+git diff [last-update-hash]..HEAD -- .claude/context/ | cat
+
+# Find new patterns quickly
+fd -e js -e ts --changed-within 3months | xargs rg -l 'pattern'
+```
+</propagation_checklist>
+
+<integration_approach>
+For each file being updated:
+1. Check if toolkit section exists
+2. If not, add it after the main introduction
+3. Update any old `find`/`grep` commands to use modern equivalents
+4. Add project-specific discovery commands based on actual patterns found
+5. Include performance comparison if replacing slow commands
+</integration_approach>
+</phase>
+</toolkit_propagation_update>
 
 <execution_instruction>
 Begin by thoroughly analyzing the existing Claude Code documentation to understand the current state. Then identify what has changed in the codebase since that documentation was created. Focus your efforts on areas of significant change rather than re-analyzing the entire codebase.

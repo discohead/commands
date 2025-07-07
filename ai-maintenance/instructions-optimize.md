@@ -49,6 +49,7 @@ Before beginning optimization, gather comprehensive intelligence about current i
 
 1. **Analyze Current Instructions**:
    - Read `.github/copilot-instructions.md` and measure exact line count
+   - Check for `.github/workflows/copilot-setup-steps.yml` and analyze setup time
    - Catalog each instruction's purpose and claimed benefit
    - Note any redundancy between sections
    - Identify instructions that are explanatory vs. prescriptive
@@ -266,6 +267,133 @@ As you consolidate instructions, ask yourself:
 - Is the consolidated version actually shorter while preserving impact?
 - Would a developer miss important nuance in the consolidated version?
 - Can one well-crafted example replace multiple explanations?
+</thinking_prompt>
+</phase>
+
+<phase id="2.5" name="Setup Steps Optimization">
+<objective>Optimize the copilot-setup-steps.yml file for efficiency and alignment with project needs</objective>
+
+<setup_steps_analysis>
+If `.github/workflows/copilot-setup-steps.yml` exists, analyze its efficiency:
+
+1. **Dependency Alignment**:
+   - Check if installed dependencies match actual project usage
+   - Identify unused tools being installed
+   - Find missing tools that cause Copilot failures
+   - Verify version specifications are current
+
+2. **Performance Metrics**:
+   - Measure current setup execution time
+   - Identify slowest steps
+   - Check cache effectiveness
+   - Find redundant operations
+
+3. **Step Optimization**:
+   - Consolidate related installations
+   - Parallelize independent steps
+   - Optimize cache usage
+   - Remove unnecessary builds
+</setup_steps_analysis>
+
+<optimization_techniques>
+1. **Dependency Pruning**:
+   ```yaml
+   # Before: Installing everything
+   - name: Install Python dependencies
+     run: |
+       pip install -r requirements.txt
+       pip install -r requirements-dev.txt
+       pip install -r requirements-test.txt
+   
+   # After: Only what Copilot needs
+   - name: Install Python dependencies
+     run: |
+       pip install -r requirements.txt
+       pip install pytest black  # Only essential dev tools
+   ```
+
+2. **Caching Enhancement**:
+   ```yaml
+   # Optimize caching with hash keys
+   - name: Cache dependencies
+     uses: actions/cache@v3
+     with:
+       path: ~/.npm
+       key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+       restore-keys: |
+         ${{ runner.os }}-npm-
+   ```
+
+3. **Parallel Execution**:
+   ```yaml
+   # Run independent steps concurrently
+   - name: Install tools in parallel
+     run: |
+       npm ci &
+       pip install -r requirements.txt &
+       wait
+   ```
+
+4. **Conditional Steps**:
+   ```yaml
+   # Only run expensive steps when needed
+   - name: Build project
+     if: hashFiles('src/**/*.ts') != ''
+     run: npm run build
+   ```
+</optimization_techniques>
+
+<size_analysis>
+Monitor setup steps file size and complexity:
+- Total lines: Should be under 150 for maintainability
+- Number of steps: Aim for under 10 distinct steps
+- Execution time: Target under 5 minutes total
+- Cache size: Keep under GitHub's limits
+</size_analysis>
+
+<common_optimizations>
+1. **Package Manager Optimization**:
+   - Use `npm ci` instead of `npm install`
+   - Use `--frozen-lockfile` for yarn/pnpm
+   - Use `pip install --no-deps` when possible
+   - Leverage `actions/setup-*` caching
+
+2. **Build Optimization**:
+   - Skip builds if only running tests
+   - Use incremental builds
+   - Cache build outputs
+   - Defer optional compilations
+
+3. **Tool Installation**:
+   - Install only formatters/linters Copilot uses
+   - Use pre-built tool versions
+   - Combine related tool installations
+   - Avoid global installations when possible
+
+4. **Environment Setup**:
+   - Only set variables Copilot needs
+   - Use repository variables over secrets when possible
+   - Minimize secret exposure
+   - Group related configurations
+</common_optimizations>
+
+<validation_checklist>
+After optimization, verify:
+□ Setup completes in under 10 minutes
+□ All necessary tools are available to Copilot
+□ Caching reduces subsequent run times
+□ No redundant or unused installations
+□ Environment matches production needs
+□ Works with repository's actual structure
+</validation_checklist>
+
+<thinking_prompt>
+When optimizing setup steps, consider:
+- Is every installed dependency actually used by Copilot?
+- Can build steps be deferred or made conditional?
+- Are we caching effectively to speed up subsequent runs?
+- Do the setup steps align with how developers actually work?
+- Could larger runners provide better cost/performance ratio?
 </thinking_prompt>
 </phase>
 

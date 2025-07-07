@@ -96,15 +96,31 @@ Use DeepWiki's analysis to:
 
 <steps>
 1. Read CLAUDE.md to understand what /init has already discovered
-2. Execute comprehensive file discovery:
+2. Execute comprehensive file discovery using modern context engineering tools:
    ```bash
-   find . -type f -name "*.js" -o -name "*.ts" -o -name "*.py" -o -name "*.java" | head -20
-   find . -type f -name "main.*" -o -name "index.*" -o -name "app.*"
-   find . -type f -name "*.config.*" -o -name "*.json" -o -name "*.yaml" -o -name ".env*"
-   find . -type d -name "*test*" -o -name "*spec*" -o -name "*example*"
-   find . -name "README*" -o -name "*.md" -o -path "*/docs/*"
+   # Fast file discovery with fd
+   fd -e js -e ts -e py -e java | head -20     # Source files overview
+   fd '^(main|index|app)\.' -t f               # Entry points
+   fd -H '^\.' -e json -e yaml -e yml -e env   # Config files (including hidden)
+   fd -t d '(test|spec|example)'                # Test directories
+   fd -e md | rg -l 'README|docs' | head -20    # Documentation
+   
+   # Visual structure overview
+   tree -I 'node_modules|dist|build|.git' -L 3
+   
+   # Quick content preview of key files
+   fd '^(main|index|app)\.' | head -5 | xargs cat --style=numbers --line-range=1:20
    ```
-3. Analyze the directory structure for architectural clues
+3. Analyze the directory structure for architectural clues:
+   ```bash
+   # Count files by type for technology insights
+   fd -e js -e ts -e jsx -e tsx | wc -l        # JavaScript/TypeScript
+   fd -e py | wc -l                             # Python
+   fd -e java -e kt | wc -l                     # Java/Kotlin
+   
+   # Find framework indicators
+   rg -l '(express|fastify|django|flask|spring)' --type-add 'config:*.{json,yaml,yml}' -t config
+   ```
 </steps>
 
 <thinking_prompt>
@@ -113,6 +129,7 @@ After gathering this information, reflect deeply:
 - Which directories seem most active or important?
 - What naming patterns suggest about team conventions?
 - How does the test structure mirror the source structure?
+- What technologies and frameworks are indicated by file types and content?
 </thinking_prompt>
 
 <output_artifact>
@@ -145,6 +162,106 @@ project-root/
 ## Documentation Located
 - `README.md`: [what it covers]
 - `docs/`: [what's documented there]
+</format>
+</output_artifact>
+</phase>
+
+<phase id="1.5" name="Advanced Pattern Mining with Context Engineering">
+<objective>Use modern context engineering tools to perform deep pattern discovery and structural analysis</objective>
+
+<context_toolkit_notice>
+This project benefits from Claude Code's context engineering toolkit - a set of powerful tools for surgical context extraction:
+- **Fast search**: rg (ripgrep), fd
+- **Code intelligence**: ast-grep, semgrep, comby  
+- **Data processing**: jq, yq, gron, mlr
+- **Scripting**: perl, ruby, awk, python one-liners
+</context_toolkit_notice>
+
+<modern_discovery_commands>
+```bash
+# Deep structural analysis with AST tools
+echo "=== Analyzing code structure ==="
+ast-grep --pattern 'class $CLASS { $$$ }' --json | jq -r '.matches[].metavariables.CLASS.text' | sort | uniq
+ast-grep --pattern 'function $FUNC($$$) { $$$ }' --json | jq '.matches | length' 
+ast-grep --pattern 'async $$ function $FUNC' --stats
+
+# Import/dependency analysis
+echo "=== Mapping dependencies ==="
+rg '^import .* from' --json | jq -r '.data.lines.text' | perl -ne 'print "$1\n" if /from ['\''"](.+?)['\''"]/' | sort | uniq -c | sort -rn | head -20
+rg '^(import|require)\(' --type js --type ts -o | sort | uniq -c
+
+# Pattern detection with semantic analysis
+echo "=== Detecting patterns ==="
+semgrep --config=auto --metrics=on --json | jq '.results | group_by(.check_id) | map({pattern: .[0].check_id, count: length}) | sort_by(.count) | reverse'
+comby -stats 'try { :[body] } catch' '' -matcher .js
+comby -stats 'if (:[x] === null || :[x] === undefined)' '' -matcher .js
+
+# API and route discovery
+echo "=== Finding API endpoints ==="
+rg '@(Get|Post|Put|Delete|Patch)\(' --type ts -B 2 -A 1
+rg '(app|router)\.(get|post|put|delete|patch)\(' --type js
+
+# Configuration analysis
+echo "=== Analyzing configurations ==="
+fd -e json -e yaml -e yml | xargs -I {} sh -c 'echo "=== {} ==="; cat {} | jq -r "keys[]" 2>/dev/null || yq eval "keys" {} 2>/dev/null' | sort | uniq -c
+
+# Test pattern analysis
+echo "=== Understanding test structure ==="
+fd -e test.js -e spec.ts | xargs rg '(describe|it|test)\(' | awk -F: '{print $1}' | uniq -c
+rg '(mock|stub|spy|jest\.)' --type js --type ts | awk -F: '{print $2}' | sort | uniq -c | sort -rn | head -10
+
+# Technology fingerprinting
+echo "=== Technology stack detection ==="
+cat package.json 2>/dev/null | jq '.dependencies | keys[]' | sort
+fd Gemfile.lock requirements.txt go.mod pom.xml | xargs -I {} sh -c 'echo "Found: {}"'
+```
+</modern_discovery_commands>
+
+```bash
+
+# Search and select patterns
+
+```
+
+<thinking_prompt>
+After running these advanced analyses:
+- What architectural patterns does AST analysis reveal?
+- How do imports form a dependency graph?
+- What code smells or anti-patterns did semgrep identify?
+- Are there repeated code structures that suggest extractable patterns?
+- How can we leverage these tools for ongoing development?
+</thinking_prompt>
+
+<output_artifact>
+<file_path>.claude/context/toolkit/discovered-patterns.md</file_path>
+<format>
+# Advanced Pattern Analysis
+
+## Structural Patterns (AST-based)
+- Classes found: [count and common patterns]
+- Function styles: [async patterns, arrow functions, etc]
+- Component patterns: [if using React/Vue/Angular]
+
+## Dependency Graph Insights
+- Most imported modules: [top 10]
+- Circular dependencies: [if found]
+- External vs internal imports ratio
+
+## Code Intelligence Findings
+- Security patterns detected by semgrep
+- Common code structures identified by comby
+- Potential refactoring opportunities
+
+## Context Engineering Commands for This Project
+```bash
+# Quick architecture overview
+ast-grep --pattern 'class $$ extends $$' 
+
+# Find all TODOs with context
+rg 'TODO|FIXME' -A 2 -B 2
+
+# Analyze specific module
+```
 </format>
 </output_artifact>
 </phase>
@@ -699,6 +816,89 @@ These nested contexts provide focused assistance when working in specific areas 
 ```
 </output_summary>
 </phase>
+
+<toolkit_propagation>
+<phase id="7.5" name="Context Engineering Toolkit Propagation">
+<objective>Ensure all generated contexts include knowledge of modern context engineering tools</objective>
+
+<propagation_strategy>
+Every generated context file (CLAUDE.md, discovered-patterns.md, etc.) should include:
+
+1. **Toolkit Availability Notice**
+```markdown
+## Context Engineering Toolkit
+
+This project's Claude Code context includes access to modern tools for efficient codebase exploration:
+- **Fast search**: `rg` (ripgrep), `fd` 
+- **Code intelligence**: `ast-grep`, `semgrep`, `comby`
+- **Data processing**: `jq`, `yq`, `gron`, `mlr`, `jc`
+- **Scripting**: `perl`, `ruby`, `awk`, `python` one-liners
+
+Use these tools for surgical context extraction rather than exhaustive file reading.
+```
+
+2. **Project-Specific Discovery Commands**
+Include a section in each CLAUDE.md with optimized commands:
+```markdown
+## Efficient Context Discovery
+
+# Find implementations of a pattern
+ast-grep --pattern 'class $$ implements PaymentProcessor'
+
+# Search for usage across codebase  
+rg 'processPayment' --type ts -A 2 -B 2
+
+
+# Analyze module dependencies
+rg '^import.*from.*payment' --type ts | sort | uniq
+```
+
+3. **Performance Optimization Tips**
+```markdown
+## Context Optimization
+
+When exploring this codebase:
+- Use `fd` for file discovery (100x faster than find)
+- Use `rg` for content search (respects .gitignore)
+- Use `ast-grep` for structural code patterns
+- Process JSON configs with `jq`, YAML with `yq`
+- Chain tools with pipes for complex analysis
+```
+</propagation_strategy>
+
+<integration_points>
+Add toolkit knowledge to:
+- Main CLAUDE.md file (root context)
+- Component-specific CLAUDE.md files  
+- discovered-patterns.md
+- architecture documentation
+- workflow documentation
+</integration_points>
+
+<example_integration>
+In `/src/services/auth/CLAUDE.md`:
+```markdown
+## Auth Service Context
+
+### Quick Discovery Commands
+```bash
+# Find all auth endpoints
+rg '@(Post|Get).*auth' --type ts
+
+# Analyze JWT usage
+rg 'jwt\.' --type ts | awk -F: '{print $2}' | sort | uniq -c
+
+# Find auth middleware
+ast-grep --pattern 'function $$(req, res, next) { $$$ }'
+```
+
+### Common Tasks
+- Find user validation: `rg 'validateUser|userSchema'`
+- Check permission logic: `ast-grep --pattern 'if ($$.role === $_)'`
+```
+</example_integration>
+</phase>
+</toolkit_propagation>
 
 <quality_control>
 Throughout this process:

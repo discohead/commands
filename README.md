@@ -90,20 +90,28 @@ This command transforms discovered patterns into behavioral rules that actively 
 
 ### `/copilot` - Generate Copilot Instructions
 
-This command distills essential patterns into persistent instructions that accompany every Copilot interaction. Think of it as creating the "muscle memory" for your AI pair programmer.
+This command distills essential patterns into persistent instructions that accompany every Copilot interaction and configures Copilot's development environment. Think of it as creating the "muscle memory" for your AI pair programmer while ensuring it has the proper tools to work effectively.
 
 **When to use**:
 - After generating both context and rules
 - When core patterns have stabilized
 - To ensure consistent AI suggestions
+- When Copilot needs specific build/test environments
 
 **What it creates**:
 - `.github/copilot-instructions.md` (< 500 lines)
+- `.github/workflows/copilot-setup-steps.yml` - Development environment configuration
 - Specialized instruction files for specific tasks
 - Prompt templates for common operations
 - Brief mention of DeepWiki as supplemental resource
 
-**Optimization focus**: Maximum impact within size constraints
+**Environment configuration**: Automatically detects and configures:
+- Language-specific setup (Node.js, Python, Go, Rust, etc.)
+- Dependency installation commands
+- Build and test frameworks
+- Environment variables and secrets
+
+**Optimization focus**: Maximum impact within size constraints and minimal setup time
 
 ### `/agents` - Generate Codex AGENTS.md
 
@@ -291,7 +299,6 @@ This immediate execution design ensures efficient workflow and prevents the conf
 - Guide you through running individual commands in sequence
 - Provide validation between phases
 - Ensure proper dependencies are respected
-- Offer decision points for human judgment
 
 ## External Resources and Integrations
 

@@ -58,6 +58,12 @@ This is a **Document-as-Code** architecture where:
    - Cursor rules + Context → Copilot persistent instructions
    - All layers → Codex AGENTS.md configuration
 
+### Evolution [Updated: 2025-07-05]
+The Persistent Layer (GitHub Copilot) now includes development environment configuration:
+- **New**: `.github/workflows/copilot-setup-steps.yml` for environment setup
+- **Impact**: Copilot can now properly build, test, and analyze projects
+- **Pattern**: Phase 2.5 added to both setup and maintenance commands
+
 ## Architectural Principles Observed
 
 ### 1. **Self-Contained Commands**

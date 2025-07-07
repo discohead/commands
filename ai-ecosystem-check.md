@@ -42,6 +42,8 @@ Start by checking for the existence of AI ecosystem configuration files in this 
    find .github/instructions -name "*.md" -type f 2>/dev/null
    # Check prompt templates
    find .github/prompts -name "*.md" -type f 2>/dev/null
+   # Check development environment setup
+   ls -la .github/workflows/copilot-setup-steps.yml 2>/dev/null
    ```
 
 4. Check for Delegation Layer (Codex AGENTS.md):
@@ -238,6 +240,7 @@ This project maintains a four-layer AI configuration system:
    - `.github/copilot-instructions.md`: Core universal patterns (<500 lines)
    - `.github/instructions/`: Specialized task-specific instructions
    - `.github/prompts/`: Reusable prompt templates for complex operations
+   - `.github/workflows/copilot-setup-steps.yml`: Development environment configuration
 
 4. **Delegation Layer** (Codex Cloud Agent)
    - `AGENTS.md`: Cloud task execution instructions
@@ -271,6 +274,7 @@ This project maintains a three-layer AI configuration system:
    - `.github/copilot-instructions.md`: Core universal patterns
    - `.github/instructions/`: {{INSTRUCTION_FILE_COUNT}} specialized files
    - `.github/prompts/`: {{PROMPT_FILE_COUNT}} prompt templates
+   - `.github/workflows/copilot-setup-steps.yml`: {{IF_SETUP_STEPS}}Configured{{ELSE}}Not configured{{END_IF}}
 
 💡 **Cloud Delegation Available**: Add `AGENTS.md` to enable OpenAI Codex for autonomous task execution.
 
@@ -317,6 +321,7 @@ This project maintains a {{THREE_OR_FOUR}}-layer AI configuration system:
    - `.github/copilot-instructions.md`: Core universal patterns
    - `.github/instructions/`: {{INSTRUCTION_FILE_COUNT}} specialized files
    - `.github/prompts/`: {{PROMPT_FILE_COUNT}} prompt templates
+   - `.github/workflows/copilot-setup-steps.yml`: {{IF_SETUP_STEPS}}Environment configured{{ELSE}}Not configured{{END_IF}}
 
 {{IF_AGENTS_MD_EXISTS}}
 4. **Delegation Layer** (Codex Cloud Agent)
@@ -384,6 +389,8 @@ For each layer present, analyze:
    - Verify core instruction size
    - List specialized instruction files
    - Count prompt templates
+   - Check for copilot-setup-steps.yml configuration
+   - Analyze setup steps execution time if present
 
 4. **Delegation Layer**:
    - Check AGENTS.md presence and size
@@ -420,6 +427,7 @@ For each layer present, analyze:
    - Core instructions: {{INSTRUCTION_LINE_COUNT}}/500 lines
    - Specialized instructions: {{SPECIALIZED_COUNT}} files
    - Prompt templates: {{PROMPT_COUNT}} files
+   - Environment setup: {{IF_SETUP_STEPS}}Configured{{ELSE}}Not configured{{END_IF}}
 
 ✅ **Delegation Layer**:
    - AGENTS.md present ({{AGENTS_SIZE}} lines)
@@ -478,6 +486,9 @@ For each layer present, analyze:
 {{END_IF}}
 {{IF_NO_AGENTS_MD}}
 5. Generate AGENTS.md to enable cloud task delegation
+{{END_IF}}
+{{IF_NO_SETUP_STEPS}}
+6. Add `.github/workflows/copilot-setup-steps.yml` to configure Copilot's environment
 {{END_IF}}
 
 ### Quick Actions:
@@ -541,6 +552,12 @@ Handle these edge cases gracefully:
    - AGENTS.md exists but references broken
    - Environment setup incomplete
    - Note specific issues in report
+
+10. **Copilot environment setup**:
+   - Check for malformed YAML syntax
+   - Verify job name is exactly `copilot-setup-steps`
+   - Note if setup steps exceed recommended time limits
+   - Flag missing or incorrect permissions
 </error_handling>
 
 <execution_reminder>

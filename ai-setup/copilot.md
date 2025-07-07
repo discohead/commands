@@ -220,6 +220,239 @@ const userBuilder = () => ({
 </example_specialized_instruction>
 </phase>
 
+<phase id="2.5" name="Development Environment Configuration">
+<objective>Configure Copilot's ephemeral environment with necessary tools and dependencies</objective>
+
+<environment_analysis>
+Before Copilot can effectively work on tasks, it needs access to:
+- Project dependencies installed and ready
+- Build tools and compilers configured
+- Test frameworks available
+- Linting and formatting tools accessible
+- Environment variables properly set
+
+Analyze the project to determine setup requirements:
+1. **Language Detection**: Check for package files (package.json, requirements.txt, go.mod, Cargo.toml, etc.)
+2. **Build System**: Identify build tools (npm, pip, cargo, make, gradle, etc.)
+3. **Test Frameworks**: Detect testing tools and configurations
+4. **Special Requirements**: Private dependencies, Git LFS, specific versions
+5. **Environment Needs**: API keys, service URLs, feature flags
+</environment_analysis>
+
+<setup_steps_template>
+<file_path>.github/workflows/copilot-setup-steps.yml</file_path>
+<format>
+name: "Copilot Setup Steps"
+
+# Automatically run the setup steps when they are changed to allow for easy validation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  # The job MUST be called `copilot-setup-steps` or it will not be picked up by Copilot.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+
+    # Set permissions based on project needs
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        {{IF_GIT_LFS}}
+        with:
+          lfs: true
+        {{END_IF}}
+
+      {{IF_NODE_PROJECT}}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "{{NODE_VERSION}}"
+          cache: "{{PACKAGE_MANAGER}}"
+
+      - name: Install JavaScript dependencies
+        run: {{PACKAGE_MANAGER}} {{INSTALL_COMMAND}}
+      {{END_IF}}
+
+      {{IF_PYTHON_PROJECT}}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "{{PYTHON_VERSION}}"
+          cache: "pip"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          {{IF_DEV_REQUIREMENTS}}pip install -r requirements-dev.txt{{END_IF}}
+      {{END_IF}}
+
+      {{IF_GO_PROJECT}}
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "{{GO_VERSION}}"
+          cache: true
+
+      - name: Download Go dependencies
+        run: go mod download
+      {{END_IF}}
+
+      {{IF_RUST_PROJECT}}
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: {{RUST_TOOLCHAIN}}
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+      {{END_IF}}
+
+      {{IF_CUSTOM_TOOLS}}
+      - name: Install additional tools
+        run: |
+          {{CUSTOM_TOOL_INSTALLATION}}
+      {{END_IF}}
+
+      {{IF_BUILD_STEP}}
+      - name: Build project
+        run: {{BUILD_COMMAND}}
+      {{END_IF}}
+
+      {{IF_LINT_SETUP}}
+      - name: Set up linting tools
+        run: {{LINT_SETUP_COMMAND}}
+      {{END_IF}}
+
+</format>
+</setup_steps_template>
+
+<language_specific_templates>
+# Node.js/TypeScript Template
+```yaml
+- name: Set up Node.js
+  uses: actions/setup-node@v4
+  with:
+    node-version: "20"
+    cache: "npm"
+
+- name: Install dependencies
+  run: npm ci
+
+- name: Build TypeScript
+  run: npm run build
+
+- name: Install global tools
+  run: npm install -g typescript eslint prettier
+```
+
+# Python Template
+```yaml
+- name: Set up Python
+  uses: actions/setup-python@v5
+  with:
+    python-version: "3.11"
+    cache: "pip"
+
+- name: Install dependencies
+  run: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    pip install black flake8 mypy pytest
+
+- name: Install project in development mode
+  run: pip install -e .
+```
+
+# Monorepo Template
+```yaml
+- name: Enable Corepack for package manager
+  run: corepack enable
+
+- name: Install dependencies for all workspaces
+  run: pnpm install --frozen-lockfile
+
+- name: Build all packages
+  run: pnpm run build
+```
+
+# Private Dependencies Template
+```yaml
+- name: Configure npm for private registry
+  run: |
+    echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+    echo "@myorg:registry=https://npm.pkg.github.com" >> ~/.npmrc
+
+- name: Install dependencies including private packages
+  run: npm ci
+```
+</language_specific_templates>
+
+<environment_variables_guidance>
+For projects requiring environment variables or secrets:
+
+1. **Create GitHub Actions secrets** in the `copilot` environment:
+   ```
+   Repository Settings → Environments → copilot → Add secret
+   ```
+
+2. **Common environment variables**:
+   - API endpoints: `API_BASE_URL`, `BACKEND_URL`
+   - Feature flags: `ENABLE_FEATURE_X`
+   - Service keys: `ANALYTICS_KEY`, `ERROR_TRACKING_KEY`
+
+3. **Reference in setup steps**:
+   ```yaml
+   - name: Set up environment
+     run: |
+       echo "API_URL=${{ vars.API_URL }}" >> $GITHUB_ENV
+       echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
+   ```
+
+Note: Copilot will have access to these environment variables during task execution.
+</environment_variables_guidance>
+
+<optimization_considerations>
+1. **Caching Strategy**:
+   - Use GitHub Actions caching for dependencies
+   - Cache build artifacts when build is slow
+   - Implement incremental builds when possible
+
+2. **Parallel Installation**:
+   - Use `npm ci` instead of `npm install`
+   - Run independent setup steps in parallel
+   - Minimize sequential dependencies
+
+3. **Minimal Setup**:
+   - Only install what Copilot actually needs
+   - Skip development dependencies if not used
+   - Avoid redundant build steps
+
+4. **Time Limits**:
+   - Keep total setup under 10 minutes
+   - Use `timeout-minutes` for long operations
+   - Consider larger runners for complex builds
+</optimization_considerations>
+
+<thinking_prompt>
+When creating the setup steps, consider:
+- What would a new developer need to work on this project?
+- Which tools does Copilot need to validate changes?
+- Are there any special build requirements or private dependencies?
+- How can we make the setup as fast and reliable as possible?
+- What environment variables are essential for basic functionality?
+</thinking_prompt>
+</phase>
+
 <phase id="3" name="Prompt Files for Common Tasks">
 <objective>Transform complex workflows into reusable, parameterized prompts</objective>
 

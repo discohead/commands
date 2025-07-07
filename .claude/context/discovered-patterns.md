@@ -170,6 +170,35 @@ Think deeply about the architectural decisions:
 
 **Rationale**: Prompts prevent superficial analysis and encourage understanding of underlying principles.
 
+## Environment Configuration Patterns
+
+### Development Environment Setup Pattern [Updated: 2025-07-05]
+GitHub Copilot now includes environment configuration through `.github/workflows/copilot-setup-steps.yml`:
+
+```yaml
+jobs:
+  copilot-setup-steps:  # Job name MUST be exactly this
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up [Language]
+        uses: actions/setup-[language]@vX
+      - name: Install dependencies
+        run: [package manager install command]
+```
+
+**Rationale**: Copilot needs a properly configured environment to build, test, and analyze code effectively. This pattern ensures consistent environment setup across all Copilot interactions.
+
+### Environment Optimization Pattern
+Maintenance commands now include setup steps optimization:
+- Dependency pruning (only install what Copilot needs)
+- Caching enhancement for faster subsequent runs
+- Parallel execution of independent steps
+- Conditional steps based on actual needs
+
+**Rationale**: Efficient environment setup improves Copilot's response time and reduces resource usage.
+
 ## Command Composition Patterns
 
 ### Setup → Maintenance Lifecycle
@@ -183,7 +212,7 @@ Commands follow a natural progression:
 ### Dependency Chain Pattern
 Later commands depend on outputs from earlier commands:
 - `cursor.md` requires `context.md` outputs
-- `copilot.md` requires both context and cursor outputs
+- `copilot.md` requires both context and cursor outputs (now includes environment setup)
 - `agents.md` leverages all previous layers
 
 **Rationale**: Dependencies ensure each layer builds upon established patterns rather than duplicating analysis.

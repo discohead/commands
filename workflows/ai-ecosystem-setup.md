@@ -51,8 +51,16 @@ Start by verifying all prerequisites are met, then provide a clear overview of t
 ## Phase 1: Generate Claude Code Context
 
 <phase_objective>
-Create a comprehensive knowledge architecture by analyzing the codebase to discover patterns, conventions, and architectural decisions.
+Create a comprehensive knowledge architecture by analyzing the codebase to discover patterns, conventions, and architectural decisions using modern context engineering tools.
 </phase_objective>
+
+<context_toolkit_note>
+The context generation process leverages Claude Code's context engineering toolkit:
+- Fast discovery with `fd` and `rg`
+- AST-based analysis with `ast-grep` and `semgrep`
+- Data processing with `jq`, `yq`, and other modern tools
+This enables surgical context extraction and precise pattern discovery.
+</context_toolkit_note>
 
 <execution>
 Run: `/context`
@@ -76,11 +84,14 @@ Before proceeding to Phase 2, verify:
 □ Architecture diagram accurately represents system
 □ No critical patterns were missed
 □ Code examples are from actual codebase (not generic)
+□ Context engineering toolkit commands are included in generated files
+□ Project-specific discovery commands are documented
 
 If anything seems incorrect or incomplete, you can:
 - Run `/context` again with specific focus areas
 - Manually edit files to correct misunderstandings
 - Add additional context to CLAUDE.md before proceeding
+- Verify toolkit commands with: `rg "fd|rg|ast-grep" .claude/context/`
 </quality_checkpoint>
 
 <thinking_prompt>
@@ -466,6 +477,47 @@ Remember: This is an iterative process. Your first generation creates a solid fo
 
 The four-system ecosystem provides comprehensive coverage from inline suggestions to autonomous cloud development. Each system has its strengths, and together they create a development environment where AI truly understands and enhances your workflow.
 </execution_note>
+
+<context_toolkit_propagation>
+## Context Engineering Toolkit Propagation
+
+Throughout the ecosystem setup, ensure the power of modern context engineering tools is propagated:
+
+### In Claude Code Context
+- All generated CLAUDE.md files include toolkit commands
+- Pattern discovery leverages AST-based analysis
+- Workflow documentation shows efficient exploration techniques
+
+### In Cursor Rules
+- Rules reference fast discovery methods
+- Pattern enforcement uses `ast-grep` for validation
+- Quick-fix commands utilize toolkit capabilities
+
+### In Copilot Instructions
+- Suggestions for using `rg` over grep
+- Recommendations for `fd` over find
+- Tips for processing JSON with `jq`
+
+### In Codex Agents
+- Agents know to use modern tools in their workflows
+- PRs include efficient analysis commands
+- Task execution leverages toolkit performance
+
+### Verification Commands
+```bash
+# Check toolkit propagation across ecosystem
+echo "=== Checking toolkit integration ==="
+
+# Verify modern tools replace old ones
+echo "=== Checking for legacy tools ==="
+rg "grep -r|find \." .claude/ .cursorrules COPILOT_INSTRUCTIONS.md AGENTS.md
+
+# List toolkit commands in documentation
+echo "=== Toolkit commands documented ==="
+```
+
+Remember: The context engineering toolkit transforms how AI assistants understand and navigate codebases. By propagating this knowledge throughout the ecosystem, you enable surgical precision in code analysis and generation across all AI systems.
+</context_toolkit_propagation>
 
 <execution_reminder>
 You are now actively orchestrating this setup workflow. Begin with the prerequisites check and guide through each phase systematically. Provide clear instructions for when to run each command and validate results between phases. This command is your complete authorization to coordinate the complete AI ecosystem setup process including cloud agent configuration.
